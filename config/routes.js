@@ -24,6 +24,8 @@ module.exports.routes = {
   'POST /api/v1/user/login': { action: 'user/login' },
   'GET /api/v1/user/profile': { action: 'user/profile' },
   'POST /api/v1/user/update': { action: 'user/update' },
+  'POST /api/v1/admin/login': { action: 'admin/login' },
+  'POST /api/v1/admin/users/list': { action: 'admin/users/list' },
 
 
   /***************************************************************************
