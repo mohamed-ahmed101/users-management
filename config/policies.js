@@ -17,6 +17,10 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  '*': ['isAuthorized'], // Everything resctricted here
+  'user/register': true,
+  'user/login': true,
+  'admin/login': true,
+  'admin/users/list': ['isAuthorized','isAdmin']
 
 };
