@@ -20,6 +20,10 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'pages/homepage' },
+  'POST /api/v1/user/register': { action: 'user/register' },
+  'POST /api/v1/user/login': { action: 'user/login' },
+  'GET /api/v1/user/profile': { action: 'user/profile' },
+  'POST /api/v1/user/update': { action: 'user/update' },
 
 
   /***************************************************************************
