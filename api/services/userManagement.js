@@ -36,5 +36,20 @@ module.exports = {
         usersRef.doc(uuid.v4()).set(userData);
         return { message: "register done successfully" };
     },
+    getProfile: async (data) => {
+        const usersRef = db.collection('users');
+        const snapshot = await usersRef
+            .where('userName', '==', data.userName)
+            .select('userName', 'email', 'age')
+            .get();
+        if (snapshot.empty) {
+            throw "notFound";
+        }
+        let userData;
+        snapshot.forEach(doc => {
+            userData = doc.data();
+        });
+        return userData;
+    },
 
 }

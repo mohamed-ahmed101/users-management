@@ -13,15 +13,16 @@ module.exports = {
 
 
   exits: {
-
+    notFound: {
+      description: 'User not found with the email address provided or password do not match email provided',
+      statusCode: 404
+    },
   },
 
 
-  fn: async function (inputs) {
+  fn: async function () {
 
-    // All done.
-    return {inputs,
-    user:this.req.user.data};
+    return await userManagement.getProfile(this.req.user.data)
 
   }
 
