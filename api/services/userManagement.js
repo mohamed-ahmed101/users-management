@@ -51,5 +51,39 @@ module.exports = {
         });
         return userData;
     },
+    update: async (userData, newData) => {
+
+        const usersRef = db.collection('users');
+        const snapshotFind = await usersRef.where('userName', '==', userData.userName).get();
+        let docId;
+        snapshotFind.forEach(doc => {
+            docId = doc.id;
+        });
+
+        let promises = []
+        if (newData.email && newData.email != userData.email) {
+            promises.push(usersRef.where('email', '==', newData.email).get())
+        }
+        if (newData.userName && newData.userName != userData.userName) {
+            promises.push(usersRef.where('userName', '==', newData.userName).get());
+        }
+        let results = await Promise.all(promises);
+        results.forEach(result => {
+            if (!result.empty)
+                throw "notAvailable";
+        })
+
+        const snapshot = await usersRef
+            .doc(docId)
+            .update(newData);
+
+        if (snapshot.empty) {
+            throw "can't update";
+        }
+
+        let token = jwToken.sign({ userName: newData.userName, email: newData.email });
+
+        return { message: "user updated successfully", token };
+    }
 
 }

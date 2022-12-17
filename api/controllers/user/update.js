@@ -17,15 +17,15 @@ module.exports = {
 
 
   exits: {
-
+    notFound: {
+      description: 'User not found',
+      statusCode: 404
+    },
   },
 
 
   fn: async function (inputs) {
-
-    // All done.
-    return{inputs};
-
+    return await userManagement.update(this.req.user.data, inputs);
   }
 
 
