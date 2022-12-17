@@ -1,6 +1,4 @@
 const { userName, password } = require('../../customValidation/inputValidation');
-const jwToken = require('../../services/jwToken');
-
 module.exports = {
 
 
@@ -17,17 +15,14 @@ module.exports = {
 
 
   exits: {
+    notVaildPassword: {
+      description: 'incorrect password',
+      statusCode: 400
+    }
   },
 
 
   fn: async function (inputs) {
-
-    //TODO: check user email and password
-    return {
-      token: jwToken.sign(inputs)
-    }
-
+    return await userManagement.login(inputs);
   }
-
-
 };
