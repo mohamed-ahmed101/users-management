@@ -9,7 +9,11 @@
  * https://sailsjs.com/config/bootstrap
  */
 
-module.exports.bootstrap = async function() {
+admin = require('firebase-admin');
+
+const { initializeApp, cert } = require('firebase-admin/app');
+const { getFirestore } = require('firebase-admin/firestore');
+module.exports.bootstrap = async function () {
 
   // By convention, this is a good place to set up fake data during development.
   //
@@ -26,5 +30,9 @@ module.exports.bootstrap = async function() {
   //   // etc.
   // ]);
   // ```
+  initializeApp({
+    credential: cert(sails.config.serviceAccount)
+  });
+  db = getFirestore();
 
 };
