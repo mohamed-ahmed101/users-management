@@ -18,5 +18,23 @@ module.exports = {
         return { token: jwToken.sign({ userName: userData.userName, email: userData.email }) }
 
     },
+    register: async (userData) => {
+        const usersRef = db.collection('users');
+        const isEmailExist = usersRef.where('email', '==', userData.email).get();
+        const isUserNameExist = usersRef.where('userName', '==', userData.userName).get();
+        const [
+            isEmailExisnapshotstQuerySnapshot,
+            isUserNameExistQuerySnapshot
+        ] = await Promise.all([isEmailExist, isUserNameExist]);
+
+        if (!isUserNameExistQuerySnapshot.empty || !isEmailExisnapshotstQuerySnapshot.empty)
+            throw "notAvailable";
+
+        //encrypt passsword
+        userData.password = await sails.helpers.encryptPassword(userData.password);
+
+        usersRef.doc(uuid.v4()).set(userData);
+        return { message: "register done successfully" };
+    },
 
 }

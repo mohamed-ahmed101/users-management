@@ -1,5 +1,5 @@
 
-const { userName, password, email, age } = require('../../customValidation/inputValidation')
+const { userName, password, email, age } = require('../../customValidation/inputValidation');
 module.exports = {
 
 
@@ -22,19 +22,18 @@ module.exports = {
     notFound: {
       description: 'User not found with the email address provided or password do not match email provided',
       statusCode: 404
+    },
+    notAvailable: {
+      description: 'userName or Email already exist',
+      message: "not aviiable",
+      statusCode: 406
     }
+
   },
 
 
   fn: async function (inputs) {
-    // All done.
-    let data = await sails.helpers.inputValidation('userName')
-    return {
-      inputs,
-      data
-
-    };
-
+    return await userManagement.register(inputs)
   }
 
 
