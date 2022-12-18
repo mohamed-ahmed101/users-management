@@ -55,7 +55,10 @@ module.exports = {
         snapshot.forEach(doc => {
             userData = doc.data();
         });
-        return userData;
+
+        let algoUserData = await algoClientUserIndex.search(data.userName)
+        let algoFilteredData = _.omit(algoUserData.hits[0], ['_highlightResult', 'password', 'objectID']);
+        return { userData, algoFilteredData };
     },
     update: async (userData, newData) => {
 

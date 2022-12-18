@@ -23,13 +23,13 @@ module.exports = {
     list: async (filterData) => {
 
         const usersRef = db.collection('users');
-        let query;
+        let keyFilter = '';
         if (filterData.email)
-            query = usersRef.where('email', '==', filterData.email);
+            keyFilter = "email";
         else if (filterData.userName)
-            query = usersRef.where('userName', '==', filterData.userName);
-        else
-            query = usersRef;
+            keyFilter = "userName";
+        
+        let query = keyFilter ? usersRef.where(keyFilter, '==', filterData[keyFilter]) : usersRef;
         let snapshot = await query.count().get()
         const count = snapshot.data().count;
         const page = filterData.page || 0;
@@ -45,7 +45,11 @@ module.exports = {
             userData.push({ ...result.data(), id: result.id })
         })
 
-        return { pageNumber: page, count: count, data: userData };
+        let algoUserData = await algoClientUserIndex.search( filterData[keyFilter]);
+        let algoFilteredData = algoUserData.hits.map(element => {
+          return  _.omit(element, ['_highlightResult', 'password', 'objectID']);
+        }); 
+        return { pageNumber: page, count: count, data: userData , algoFilteredData };
     }
 
 }
