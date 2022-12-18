@@ -33,7 +33,13 @@ module.exports = {
         //encrypt passsword
         userData.password = await sails.helpers.encryptPassword(userData.password);
 
-        usersRef.doc(uuid.v4()).set(userData);
+        const docId = uuid.v4();
+        usersRef.doc(docId).set(userData);
+        algoClientUserIndex
+            .saveObjects([{
+                ...userData, objectID: docId,
+            }]).wait();
+
         return { message: "register done successfully" };
     },
     getProfile: async (data) => {
