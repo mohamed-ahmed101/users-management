@@ -1,5 +1,5 @@
 const { userName, password } = require('../../customValidation/inputValidation');
-const jwToken = require('../../services/jwToken');
+const adminManagement = require('../../services/adminManagement');
 
 module.exports = {
 
@@ -17,16 +17,23 @@ module.exports = {
 
 
   exits: {
+    notFound: {
+      description: 'User not found with the email address provided or password do not match email provided',
+      statusCode: 404
+    },
+    notAuthorized: {
+      description: 'User not found with the email address provided or password do not match email provided',
+      statusCode: 401
+    },
+    notVaildPassword: {
+      description: 'User not found with the email address provided or password do not match email provided',
+      statusCode: 400
+    },
+
   },
 
-
   fn: async function (inputs) {
-
-    //TODO: check user email and password
-    return {
-      token: jwToken.sign({ ...inputs, role: 'admin' })
-    }
+    return await adminManagement.login(inputs);
   }
-
 
 };
