@@ -1,6 +1,6 @@
 module.exports = {
     login: async (data) => {
-        const usersRef = db.collection('users');
+        const usersRef = db.collection('admin');
         const snapshot = await usersRef.where('userName', '==', data.userName).get();
         if (snapshot.empty) {
             throw "notFound";
