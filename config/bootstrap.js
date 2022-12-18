@@ -13,6 +13,8 @@ admin = require('firebase-admin');
 
 const { initializeApp, cert } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
+const algoliasearch = require("algoliasearch");
+
 module.exports.bootstrap = async function () {
 
   // By convention, this is a good place to set up fake data during development.
@@ -34,5 +36,14 @@ module.exports.bootstrap = async function () {
     credential: cert(sails.config.serviceAccount)
   });
   db = getFirestore();
+
+  algoClient = algoliasearch(sails.config.applicationID, sails.config.adminAPIKey);
+  algoClientUserIndex = algoClient.initIndex('usersManagement');
+  
+  //create AdminUser
+  const adminData = { userName: "admin", password: "admin123", role: "admin" };
+  const usersRef = db.collection('admin');
+  adminData.password = await sails.helpers.encryptPassword(adminData.password);
+  usersRef.doc(adminData.userName).set(adminData);
 
 };

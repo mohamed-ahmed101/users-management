@@ -11,5 +11,7 @@ module.exports = {
     "token_uri": "https://oauth2.googleapis.com/token",
     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-tnf5b%40usersmanagement-31e55.iam.gserviceaccount.com"
-  }
+  },
+  applicationID: "OBZI2R4MWA",
+  adminAPIKey: "96f35f7575550ad344ec8341bd476221"
 };
