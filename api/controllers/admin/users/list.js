@@ -1,5 +1,6 @@
 const { userName, email } = require('../../../customValidation/inputValidation');
 const { page, limit } = require('../../../customValidation/paginationValidation');
+const adminManagement = require('../../../services/adminManagement');
 
 
 module.exports = {
@@ -26,17 +27,7 @@ module.exports = {
 
 
   fn: async function (inputs) {
-    console.log(inputs);
-
-    // All done.
-    return {
-      count: 1,
-      page: 1,
-      data: [{
-        userName: "mohamed",
-        age: 44
-      }]
-    };
+    return await adminManagement.list(inputs);
 
   }
 
