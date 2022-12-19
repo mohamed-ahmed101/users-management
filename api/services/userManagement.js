@@ -64,6 +64,9 @@ module.exports = {
 
         const usersRef = db.collection('users');
         const snapshotFind = await usersRef.where('userName', '==', userData.userName).get();
+        if (snapshot.empty) {
+            throw "notFound";
+        }
         let docId;
         snapshotFind.forEach(doc => {
             docId = doc.id;
