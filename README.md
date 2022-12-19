@@ -1,7 +1,14 @@
 # users-management
+simple sails project for handling users management , it provides resoucre APIs for users and admin   
 
-a [Sails v1](https://sailsjs.com) application
+### Postman
+ - [User management collection](https://www.getpostman.com/collections/d05bb61b5a9283f17b16)
 
+### Tools
++ [Sails v1](https://sailsjs.com) application
++ [Fire store](https://firebase.google.com/products/firestore) to presist user Data.
++ [Algolia](https://www.algolia.com) search & discovery platform.
++ [JWT](https://jwt.io/)  method for representing claims securely between two parties.
 
 ### Links
 
